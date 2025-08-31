@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="number"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complete Your Purchase</h1>
+
+    <form id="paymentForm" action="/process-payment" method="POST">
+        <div class="form-group">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cardName">Cardholder Name:</label>
+            <text" id="cardName" name="cardName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="expiryDate">Expiry Date (MM/YY):</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cvv">CVV:</label>
+            <input type="number" id="cvv" name="cvv" placeholder="XXX" required>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" value="99.99" readonly>
+        </div>
+
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <script>
+        // In a real-world scenario, sensitive card data would be handled
+        // securely, often by a payment gateway's client-side SDK,
+        // to avoid direct handling on your server.
+        // This example is for illustrative purposes only.
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            // Prevent default form submission for demonstration
+            event.preventDefault();
+
+            // In a real application, you would typically
+            // 1. Collect form data.
+            // 2. Use a payment gateway's SDK to tokenize the card data.
+            // 3. Send the token to your backend for processing.
+            console.log('Payment form submitted (frontend simulation).');
+            alert('Payment initiated. (This is a simplified example; real processing happens securely via a payment gateway.)');
+        });
+    </script>
+</body>
+</html>
