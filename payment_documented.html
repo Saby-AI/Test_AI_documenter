@@ -1,12 +1,11 @@
-<!--
-Date: 31/08/2025
-User: Agentic_AI_System_Documenter
-Code Language: HTML
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--
+    Date: 31/08/2025
+    User: Agentic_AI_System_Documenter
+    Code Language: HTML
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
@@ -32,34 +31,35 @@ Code Language: HTML
 <body>
     <h1>Complete Your Purchase</h1>
 
+    <!-- Payment form for processing user payment details -->
     <form id="paymentForm" action="/process-payment" method="POST">
-        <!-- Form group for card number input -->
         <div class="form-group">
             <label for="cardNumber">Card Number:</label>
+            <!-- Input for the credit card number, required for payment -->
             <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
         </div>
 
-        <!-- Form group for cardholder name input -->
         <div class="form-group">
             <label for="cardName">Cardholder Name:</label>
+            <!-- Input for the name on the card -->
             <input type="text" id="cardName" name="cardName" required>
         </div>
 
-        <!-- Form group for expiry date input -->
         <div class="form-group">
             <label for="expiryDate">Expiry Date (MM/YY):</label>
+            <!-- Input for card's expiry date in MM/YY format -->
             <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
         </div>
 
-        <!-- Form group for CVV input -->
         <div class="form-group">
             <label for="cvv">CVV:</label>
+            <!-- Input for the card's CVV number -->
             <input type="number" id="cvv" name="cvv" placeholder="XXX" required>
         </div>
 
-        <!-- Form group for amount input -->
         <div class="form-group">
             <label for="amount">Amount:</label>
+            <!-- Display the amount to be paid, read-only -->
             <input type="number" id="amount" name="amount" value="99.99" readonly>
         </div>
 
@@ -68,13 +68,16 @@ Code Language: HTML
     </form>
 
     <script>
-        // Add event listener for form submission
+        // Adding event listener for form submission
+        // Note: In a real-world scenario, sensitive card data would be handled
+        // securely by a payment gateway's client-side SDK.
         document.getElementById('paymentForm').addEventListener('submit', function(event) {
             // Prevent default form submission for demonstration
             event.preventDefault();
 
-            // Display a message in the console and an alert to simulate processing the payment
+            // Log submission for demonstration purposes
             console.log('Payment form submitted (frontend simulation).');
+            // Alert notification for user regarding the payment initiation
             alert('Payment initiated. (This is a simplified example; real processing happens securely via a payment gateway.)');
         });
     </script>
