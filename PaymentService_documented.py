@@ -1,3 +1,5 @@
+# Documentation for Saby-AI/Test_AI_documenter/PaymentService.py
+
 """
 Date: 01/09/2025
 User: Agentic_AI_System_Documenter
@@ -8,15 +10,15 @@ import payment_gateway_sdk
 
 class PaymentService:
     """
-    This class handles payment processing using the payment gateway SDK.
+    A service class to handle payment operations using the payment gateway SDK.
 
     Attributes:
-        sdk (SDK): An instance of the payment gateway SDK initialized with the secret key.
+        sdk: An instance of the payment gateway SDK initialized with the provided secret key.
     """
 
     def __init__(self, secret_key):
         """
-        Initializes the PaymentService with the provided secret key.
+        Initializes the PaymentService with a specified secret key.
 
         Args:
             secret_key (str): The secret key used to authenticate with the payment gateway.
@@ -25,22 +27,22 @@ class PaymentService:
 
     def create_payment_intent(self, amount_in_cents, currency):
         """
-        Creates a payment intent for the specified amount and currency.
+        Creates a payment intent with the specified amount and currency.
 
         Args:
-            amount_in_cents (int): The amount to be charged in cents.
-            currency (str): The currency in which the payment will be processed (e.g., 'usd').
+            amount_in_cents (int): The amount to charge in cents.
+            currency (str): The currency in which the payment is made (e.g., 'usd').
 
         Returns:
-            str: The client secret for the payment intent, which is used for client-side payment processing.
+            str: The client secret or a unique ID for client-side use.
         """
-        # Create the payment intent using the SDK
+        # Creating a payment intent using the payment gateway SDK
         intent = self.sdk.create_payment_intent(amount_in_cents, currency)
-        return intent['client_secret']  # Return the client secret for further use
+        return intent['client_secret']  # Or a unique ID for client-side use
 
     def confirm_payment(self, payment_intent_id):
         """
-        Confirms the payment for a given payment intent ID.
+        Confirms a payment using the provided payment intent ID.
 
         Args:
             payment_intent_id (str): The ID of the payment intent to confirm.
@@ -48,5 +50,5 @@ class PaymentService:
         Returns:
             dict: The response from the payment gateway after confirming the payment.
         """
-        # Confirm the payment using the provided payment intent ID
+        # Confirming the payment intent with the SDK
         return self.sdk.confirm_payment(payment_intent_id)
