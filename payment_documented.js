@@ -10,14 +10,13 @@
 const paymentGateway = new PaymentGatewaySDK('YOUR_PUBLIC_KEY');
 
 /**
- * Initiates a payment process by creating a payment intent
- * on the backend server and confirming the payment with the 
- * payment gateway SDK.
+ * Initiates a payment process by creating a payment intent on the backend 
+ * and confirming the payment with the payment gateway.
  *
- * @param {number} amount - The amount to be charged in cents.
- * @param {string} currency - The currency in which the payment is to be made.
- * @param {string} description - A description of the payment or order.
- * @returns {Promise<void>} - A promise that resolves when payment process is complete.
+ * @param {number} amount - The payment amount in the smallest currency unit (e.g., cents).
+ * @param {string} currency - The currency in which the payment is made (e.g., 'USD').
+ * @param {string} description - A description of the payment for the user.
+ * @returns {Promise<void>} - A promise that resolves when the payment process is complete.
  */
 async function initiatePayment(amount, currency, description) {
     try {
