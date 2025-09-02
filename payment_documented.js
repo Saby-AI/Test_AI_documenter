@@ -1,5 +1,6 @@
+```javascript
 /**
- * Date: 31/08/2025
+ * Date: 02/09/2025
  * User: Agentic_AI_System_Documenter
  * Code Language: JavaScript
  */
@@ -9,13 +10,14 @@
 const paymentGateway = new PaymentGatewaySDK('YOUR_PUBLIC_KEY');
 
 /**
- * Initiates a payment process by creating a payment intent on the backend server
- * and confirming the payment through the payment gateway.
+ * Initiates a payment process by creating a payment intent
+ * on the backend server and confirming the payment with the 
+ * payment gateway SDK.
  *
- * @param {number} amount - The amount to be charged in the smallest currency unit (e.g., cents).
- * @param {string} currency - The currency in which the payment is made (e.g., 'USD').
- * @param {string} description - The description of the payment (e.g., 'Product Purchase').
- * @returns {Promise<void>} - A promise that resolves when the payment process is completed.
+ * @param {number} amount - The amount to be charged in cents.
+ * @param {string} currency - The currency in which the payment is to be made.
+ * @param {string} description - A description of the payment or order.
+ * @returns {Promise<void>} - A promise that resolves when payment process is complete.
  */
 async function initiatePayment(amount, currency, description) {
     try {
@@ -54,10 +56,10 @@ async function initiatePayment(amount, currency, description) {
 }
 
 // Example usage: Attach to a button click event
-// This event listener triggers the payment process when the button is clicked.
 document.getElementById('payButton').addEventListener('click', () => {
     const amount = 1000; // Amount in cents (e.g., $10.00)
     const currency = 'USD';
     const description = 'Product Purchase';
     initiatePayment(amount, currency, description);
 });
+```
