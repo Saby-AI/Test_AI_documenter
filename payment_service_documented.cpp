@@ -1,40 +1,50 @@
 /*
-Date: 02/09/2025
+Date: 03/09/2025
 User: Agentic_AI_System_Documenter
 Code Language: C++
 */
 
 /**
- * @brief Creates a payment intent using the specified secret key, amount, and currency.
+ * @brief Creates a payment intent by making a POST request to the payment gateway API.
  *
- * This function initializes a CURL session to send a POST request to the payment 
- * gateway's API to create a payment intent with the given parameters.
- *
- * @param secret_key A string containing the secret key for authentication with the payment gateway.
- * @param amount_in_cents A long integer representing the amount in cents to be charged.
- * @param currency A string representing the currency code (e.g., 'usd', 'eur') for the transaction.
- *
- * @return Returns 0 on success, or -1 on failure if the CURL operation fails.
+ * @param secret_key The authorization secret key required for authenticating to the API.
+ * @param amount_in_cents The amount of money to process, represented in cents.
+ * @param currency The currency code in which the amount is specified (e.g., "usd", "eur").
+ * @return Returns 0 on success, or -1 on failure.
  */
 int create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {
-    CURL *curl;  // Pointer to a CURL handle
-    CURLcode res;  // Variable to hold the CURL operation result
+    CURL *curl; // Pointer to hold the cURL handle
+    CURLcode res; // Variable to store the response code from cURL
 
-    curl = curl_easy_init();  // Initialize CURL
+    curl = curl_easy_init(); // Initialize the cURL session
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, 'https://api.paymentgateway.com/v1/payment_intents');
+        // Example URL (replace with actual gateway API endpoint)
+        curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
         
-        char post_fields[100];  // Buffer to store POST parameters
-        snprintf(post_fields, sizeof(post_fields), 'amount=%ld&currency=%s', amount_in_cents, currency);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields);  // Set POST fields
+        // Prepare POST data dynamically using amount and currency
+        char postfields[100];
+        snprintf(postfields, sizeof(postfields), "amount=%ld&currency=%s", amount_in_cents, currency);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postfields); // Set the POST data
 
-        res = curl_easy_perform(curl);  // Perform the CURL operation
+        // Add headers for authorization (Example: Authorization: Bearer <secret_key>)
+        struct curl_slist *headers = NULL;
+        char auth_header[100];
+        snprintf(auth_header, sizeof(auth_header), "Authorization: Bearer %s", secret_key);
+        headers = curl_slist_append(headers, auth_header);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+        // Perform the request, res will get the return code
+        res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
-            // If the operation fails, print an error message to stderr
-            fprintf(stderr, 'curl_easy_perform() failed: %s\n', curl_easy_strerror(res));
-            return -1;  // Return -1 on failure
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+            // Clean up headers before returning
+            curl_slist_free_all(headers);
+            return -1;
         }
-        curl_easy_cleanup(curl);  // Cleanup CURL resources
+
+        // Cleanup
+        curl_slist_free_all(headers); // Free the header list
+        curl_easy_cleanup(curl);       // Cleanup cURL session
     }
-    return 0;  // Return 0 on success
+    return 0; // Success
 }
