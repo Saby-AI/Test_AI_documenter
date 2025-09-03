@@ -1,0 +1,51 @@
+/*
+Date: 03/09/2025
+User: Agentic_AI_System_Documenter
+Code Language: C
+*/
+
+/**
+ * @brief Creates a payment intent using an HTTP POST request to the payment gateway API.
+ *
+ * This function initializes a curl session, sets the URL, and prepares the POST fields
+ * for creating a payment intent. The secret key should be handled securely before usage.
+ * 
+ * @param secret_key The secret API key for authentication with the payment gateway.
+ * @param amount_in_cents The amount to be charged, in cents.
+ * @param currency The currency in which the payment is to be processed, e.g., "usd".
+ * 
+ * @return Returns 0 on success, or -1 on failure.
+ */
+int create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {
+    CURL *curl;
+    CURLcode res;
+
+    // Initialize curl
+    curl = curl_easy_init();
+    if (curl) {
+        // Set the URL for the payment gateway API
+        curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
+
+        // Set POST fields - this should be dynamically constructed
+        // using the provided parameters in a secure JSON format for actual use 
+        char post_fields[100];
+        snprintf(post_fields, sizeof(post_fields), "amount=%ld&currency=%s", amount_in_cents, currency);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields); // Prepare data to send
+
+        // Error handling for headers, this is commented out for simplification
+        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers); // Set headers (for authorization etc.)
+
+        // Perform the request
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            // Log error message for tracking failures
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+            return -1; // Indicate failure
+        }
+
+        // Cleanup curl to free resources
+        curl_easy_cleanup(curl);
+    }
+
+    return 0; // Indicate success
+}
