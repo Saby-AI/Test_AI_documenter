@@ -1,5 +1,5 @@
 """
-Date: 02/09/2025
+Date: 04/09/2025
 User: Agentic_AI_System_Documenter
 Code Language: Python
 """
@@ -8,51 +8,62 @@ import payment_gateway_sdk
 
 class PaymentService:
     """
-    PaymentService class for handling payment transactions using the payment gateway SDK.
+    A service class for managing payment operations, including creating
+    and confirming payment intents using a payment gateway SDK.
 
     Attributes:
-        sdk: An instance of the payment gateway SDK initialized with a secret key.
+        sdk (payment_gateway_sdk.SDK): An instance of the payment gateway SDK
+                                        initialized with the provided secret key.
     """
 
     def __init__(self, secret_key):
         """
         Initializes the PaymentService with the provided secret key.
 
-        Args:
-            secret_key (str): The secret key used to authenticate with the payment gateway SDK.
+        Parameters:
+            secret_key (str): The secret key used for SDK authentication.
         """
         self.sdk = payment_gateway_sdk.SDK(secret_key)
 
     def create_payment_intent(self, amount_in_cents, currency):
         """
-        Creates a payment intent with the specified amount and currency.
+        Creates a new payment intent through the payment gateway SDK.
 
-        This method interacts with the payment gateway SDK to create a new payment intent and
-        returns the client secret for client-side use.
-
-        Args:
-            amount_in_cents (int): The amount for the payment in cents.
-            currency (str): The currency in which the payment is to be made.
+        Parameters:
+            amount_in_cents (int): The amount to charge, specified in cents.
+            currency (str): The currency code (e.g., 'usd').
 
         Returns:
-            str: The client secret or unique identifier for the payment intent.
+            str: The client secret or unique identifier for client-side use.
+
+        Raises:
+            ValueError: If amount_in_cents is not a positive integer or
+                        if currency is not valid (additional validation to be added).
         """
-        # Create a payment intent through the SDK
+        # TODO: Validate input parameters
+        if amount_in_cents <= 0:
+            raise ValueError("amount_in_cents must be a positive integer.")
+        if not isinstance(currency, str) or not currency.isalpha():
+            raise ValueError("currency must be a valid string.")
+
         intent = self.sdk.create_payment_intent(amount_in_cents, currency)
         return intent['client_secret']  # Or a unique ID for client-side use
 
     def confirm_payment(self, payment_intent_id):
         """
-        Confirms the payment for a given payment intent ID.
+        Confirms a payment intent using the provided payment_intent_id.
 
-        This method calls the payment gateway SDK to confirm the payment associated with 
-        the specified payment intent ID.
-
-        Args:
-            payment_intent_id (str): The ID of the payment intent to confirm.
+        Parameters:
+            payment_intent_id (str): The identifier of the payment intent to confirm.
 
         Returns:
-            bool: The result of the payment confirmation.
+            dict: Contains details of the payment confirmation.
+
+        Raises:
+            ValueError: If the payment_intent_id is invalid (additional validation to be added).
         """
-        # Confirm the payment through the SDK
+        # TODO: Validate payment_intent_id
+        if not isinstance(payment_intent_id, str) or not payment_intent_id:
+            raise ValueError("payment_intent_id must be a non-empty string.")
+
         return self.sdk.confirm_payment(payment_intent_id)
