@@ -1,3 +1,5 @@
+
+
 /*
 Date: 05/09/2025
 User: Agentic_AI_System_Documenter
@@ -5,49 +7,48 @@ Code Language: C++
 */
 
 /**
- * Function to create a payment intent using payment gateway API.
+ * @brief Creates a payment intent on the payment gateway API.
+ * 
+ * This function initializes a cURL session to communicate with the payment 
+ * gateway's API to create a new payment intent. It requires a secret 
+ * key for authentication, the amount to be processed in cents, and 
+ * the currency type.
  *
- * This function initializes a CURL session and sends a POST request
- * to create a payment intent with specified amount and currency.
- *
- * @param secret_key A string containing the API secret key for authentication.
- * @param amount_in_cents The payment amount in cents.
- * @param currency A string representing the currency code (e.g., "usd").
- * @return Returns 0 on success, -1 on failure.
- *
- * Note: This function lacks complete error handling, JSON processing,
- * and may expose security vulnerabilities. Implementation should
- * include proper authentication headers and robust error management.
+ * @param secret_key The API key used for authentication with the payment gateway.
+ * @param amount_in_cents The amount to charge in cents.
+ * @param currency The currency type (e.g., "usd").
+ * 
+ * @return int Returns 0 on success, -1 on failure.
  */
 int create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {
-    // Initialize CURL
-    CURL *curl;
+    CURL *curl; // Pointer to the cURL session
     CURLcode res;
 
-    // Starting the CURL session
+    // Initialize cURL session.
     curl = curl_easy_init();
     if (curl) {
-        // Set the payment gateway API URL (change to actual endpoint)
+        // Set the URL for the API endpoint.
         curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
         
-        // Prepare POST data for CURL, currently using static values
-        // This should ideally be dynamic based on function parameters
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "amount=1000&currency=usd"); // Example data
+        // Set the POST fields, including amount and currency; 
+        // dynamically build this string in a real-world use case for flexibility.
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "amount=1000&currency=usd"); // Example data for USD payment
         
-        // In a real application, you would need to set the authorization header
+        // Optional: Setup the headers for authorization (not implemented here).
+        // struct curl_slist *headers = NULL;
+        // headers = curl_slist_append(headers, "Authorization: Bearer <secret_key>");
         // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
-        // Perform the request
+        // Perform the request, res will get the return code.
         res = curl_easy_perform(curl);
-        
-        // Check for CURL execution failure
         if (res != CURLE_OK) {
+            // If the request failed, print the error message.
             fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-            return -1; // Return -1 to indicate failure
+            return -1; // Return -1 to indicate failure.
         }
-        
-        // Cleanup CURL session
+
+        // Clean up cURL session.
         curl_easy_cleanup(curl);
     }
-    return 0; // Return 0 to indicate success
+    return 0; // Return 0 to indicate success.
 }
