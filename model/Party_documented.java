@@ -9,17 +9,18 @@ public class Party {
     private String partytype;
     private String partygroup;
     private String partystatus;
-    private List<Address> addresses = new ArrayList<Address>();
-    private List<Communication> communications = new ArrayList<Communication>();
+    private List<Address> addresses = new ArrayList<>();
+    private List<Communication> communications = new ArrayList<>();
+    public Party() {}
     Party(String name, String type, String group, String status) {
         partyid = nextId++;
-        partynumber = genNumber(group);
+        partynumber = generateNumber(group);
         partyname = name;
         partytype = type;
         partygroup = group;
         partystatus = status;
     }
-    String genNumber(String group) {
+    private String generateNumber(String group) {
         return group.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
     }
     void addAddress(Address a) {
@@ -29,8 +30,6 @@ public class Party {
         communications.add(c);
     }
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Party {id:").append(partyid).append(", number:").append(partynumber).append(", name:").append(partyname).append(", type:").append(partytype).append(", group:").append(partygroup).append(", status:").append(partystatus).append(", addresses:").append(addresses).append(", communications:").append(communications).append("}");
-        return sb.toString();
+        return "Party {id:" + partyid + ", number:" + partynumber + ", name:" + partyname + ", type:" + partytype + ", group:" + partygroup + ", status:" + partystatus + ", addresses:" + addresses + ", communications:" + communications + "}";
     }
 }
