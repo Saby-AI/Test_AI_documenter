@@ -5,50 +5,49 @@ Code Language: C++
 */
 
 /**
- * @brief Creates a payment intent with the specified amount and currency.
- * 
- * This function initializes a CURL session and makes a POST request
- * to a payment gateway API to create a payment intent. It's a highly 
- * simplified example that lacks robust error handling and JSON parsing.
+ * Function to create a payment intent using payment gateway API.
  *
- * @param secret_key A string representing the API secret key for authentication.
- * @param amount_in_cents The amount for the payment intent specified in cents.
- * @param currency A string representing the currency (e.g., "usd").
+ * This function initializes a CURL session and sends a POST request
+ * to create a payment intent with specified amount and currency.
  *
- * @return int Returns 0 on success, or -1 on failure.
+ * @param secret_key A string containing the API secret key for authentication.
+ * @param amount_in_cents The payment amount in cents.
+ * @param currency A string representing the currency code (e.g., "usd").
+ * @return Returns 0 on success, -1 on failure.
  *
- * Note: This function currently uses hardcoded URL and POST fields. 
- * Proper error handling and JSON handling should be implemented for 
- * production use.
+ * Note: This function lacks complete error handling, JSON processing,
+ * and may expose security vulnerabilities. Implementation should
+ * include proper authentication headers and robust error management.
  */
 int create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {
-    CURL *curl;  // Pointer to CURL object
-    CURLcode res;  // Variable to hold the result code for CURL operations
+    // Initialize CURL
+    CURL *curl;
+    CURLcode res;
 
-    curl = curl_easy_init();  // Initialize a CURL session
+    // Starting the CURL session
+    curl = curl_easy_init();
     if (curl) {
-        // Set the request URL for the payment gateway API
+        // Set the payment gateway API URL (change to actual endpoint)
         curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
-
-        // Set the POST fields for the request. The amount and currency information
-        // should be dynamically assigned based on the function parameters.
-        char postfields[100];
-        snprintf(postfields, sizeof(postfields), "amount=%ld&currency=%s", amount_in_cents, currency);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postfields); // Setting post fields
-
-        // Example: Adding headers for authorization (e.g., Authorization: Bearer <secret_key>)
-        // This has been omitted for simplicity but should be included in production.
-        // struct curl_slist *headers = NULL;
-        // headers = curl_slist_append(headers, "Authorization: Bearer <secret_key>");
-        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
         
-        // Perform the API request
-        res = curl_easy_perform(curl); 
+        // Prepare POST data for CURL, currently using static values
+        // This should ideally be dynamic based on function parameters
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "amount=1000&currency=usd"); // Example data
+        
+        // In a real application, you would need to set the authorization header
+        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+        // Perform the request
+        res = curl_easy_perform(curl);
+        
+        // Check for CURL execution failure
         if (res != CURLE_OK) {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));  // Output error message
-            return -1;  // Indicate failure
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+            return -1; // Return -1 to indicate failure
         }
-        curl_easy_cleanup(curl);  // Clean up the CURL session
+        
+        // Cleanup CURL session
+        curl_easy_cleanup(curl);
     }
-    return 0;  // Indicate success
+    return 0; // Return 0 to indicate success
 }
