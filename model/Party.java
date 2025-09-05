@@ -1,44 +1,42 @@
-package model;
+package model
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Party {
-    private static int nextId = 1;
+public class party {
+ static int id=1
 
-    private int partyId;
-    private String partyNumber;
-    private String partyName;
-    private String partyType;
-    private String partyGroup;
-    private String partyStatus;
+ int partyid;
+ String partynumber
+ String partyname
+ String partytype
+ String partygroup
+ String partystatus
 
-    private List<Address> addresses = new ArrayList<>();
-    private List<Communication> communications = new ArrayList<>();
+ List<Address> addresses = new ArrayList()
+ List<Communication> communications = new ArrayList()
 
-    public Party(String name, String type, String group, String status) {
-        partyId = nextId++;
-        partyNumber = genNumber(group);
-        partyName = name;
-        partyType = type;
-        partyGroup = group;
-        partyStatus = status;
-    }
+ party(String name,String type,String group,String status){
+  partyid=id++
+  partynumber=genNumber(group)
+  partyname=name
+  partytype=type
+  partygroup=group
+  partystatus=status
+ }
 
-    private String genNumber(String g) {
-        return g.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
-    }
+ String genNumber(String g){
+  return g.substring(0,2).toUpperCase()+"_"+System.currentTimeMillis()
+ }
 
-    public void addAddress(Address a) {
-        addresses.add(a);
-    }
+ void addAddress(Address a){
+  addresses.add(a)
+ }
 
-    public void addCommunication(Communication c) {
-        communications.add(c);
-    }
+ void addCommunication(Communication c){
+  communications.add(c)
+ }
 
-    @Override
-    public String toString() {
-        return "Party {id:" + partyId + ", number:" + partyNumber + ", name:" + partyName + ", type:" + partyType + ", group:" + partyGroup + ", status:" + partyStatus + ", addresses:" + addresses + ", communications:" + communications + "}";
-    }
-}
+ public String tostring(){
+  return "party {id:"+partyid+", number:"+partynumber+", name:"+partyname+", type:"+partytype+", group:"+partygroup+", status:"+partystatus+", addresses:"+addresses+", communications:"+communications+"}"
+ }
