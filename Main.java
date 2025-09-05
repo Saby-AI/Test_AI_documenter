@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
 Date: 05/09/2025
 User: Agentic_AI_System_Documenter
@@ -9,6 +12,7 @@ Code Language: Java
  * It demonstrates the creation and management of Party instances.
  */
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         // Create Party instances
@@ -16,8 +20,8 @@ public class Main {
         Party vendor = new Party("VendorName", new Address("456 Avenue", "City", "State", "Zip"));
         
         // Print details of the parties
-        System.out.println("Customer Details: " + customer.getDetails()); // Missing semicolon in previous version
-        System.out.println("Vendor Details: " + vendor.getDetails()); // Missing parenthesis in previous version
+        logger.info("Customer Details: {}", customer.getDetails());
+        logger.info("Vendor Details: {}", vendor.getDetails());
     }
 }
 
@@ -46,7 +50,9 @@ class Party {
      * @return A string representation of the party's details.
      */
     public String getDetails() {
-        return "Name: " + name + ", Address: " + address.toString(); // Improved readability
+        StringBuilder details = new StringBuilder();
+        details.append("Name: ").append(name).append(", Address: ").append(address.toString());
+        return details.toString();
     }
 }
 
@@ -77,6 +83,4 @@ class Address {
 
     @Override
     public String toString() {
-        return street + ", " + city + ", " + state + " " + zip; // Clean toString implementation
-    }
-}
+        return street + \
