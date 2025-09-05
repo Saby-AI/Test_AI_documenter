@@ -1,8 +1,11 @@
 package model;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+/**
+ * Represents a political party with various attributes and methods.
+ */
 public class Party {
-    private int nextId = 1;
+    private static int nextId = 1;
     private int partyid;
     private String partynumber;
     private String partyname;
@@ -20,18 +23,22 @@ public class Party {
         partystatus = status;
     }
     private String genNumber(String group) {
-        return group.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
+        return generatePrefix(group) + "_" + System.currentTimeMillis();
     }
-    public void addAddress(Address a) {
+    private String generatePrefix(String group) {
+        return group.substring(0, 2).toUpperCase();
+    }
+    void addAddress(Address a) {
         addresses.add(a);
     }
-    public void addCommunication(Communication c) {
+    void addCommunication(Communication c) {
         communications.add(c);
     }
-    @Override
+    /**
+     * Returns a string representation of the Party object.
+     * @return a string representation of the Party object
+     */
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Party {id:").append(partyid).append(", number:").append(partynumber).append(", name:").append(partyname).append(", type:").append(partytype).append(", group:").append(partygroup).append(", status:").append(partystatus).append(", addresses:").append(addresses).append(", communications:").append(communications).append("}");
-        return sb.toString();
+        return "Party {id:" + partyid + ", number:" + partynumber + ", name:" + partyname + ", type:" + partytype + ", group:" + partygroup + ", status:" + partystatus + ", addresses:" + addresses + ", communications:" + communications + "}";
     }
 }
