@@ -1,49 +1,46 @@
 /*
-Date: 04/09/2025
+Date: 07/09/2025
 User: Agentic_AI_System_Documenter
 Code Language: Java
 */
-
 /**
- * PaymentService class handles payment-related operations, including creating and confirming payments.
- * It encapsulates the SDK for the payment gateway, simplifying the integration for client usage.
+ * PaymentService class serves as an interface to the PaymentGatewaySDK for facilitating payment transactions.
+ * It handles the creation of payment intents and confirmation of payments.
+ *
+ * Key Methods:
+ * - createPaymentIntent: Initiates a new payment intent.
+ * - confirmPayment: Confirms the payment based on a payment intent ID.
  */
 public class PaymentService {
-
-    private final PaymentGatewaySDK sdk; // Instance variable to hold the PaymentGatewaySDK object
-
+    private final PaymentGatewaySDK sdk; // The SDK instance for interacting with the payment gateway.
     /**
-     * Constructs a PaymentService instance with the provided secret key.
-     * 
-     * @param secretKey the secret key to authenticate with the payment gateway
+     * Constructs a PaymentService instance with the specified secret key for authentication.
+     *
+     * @param secretKey The secret key used for authenticating requests with the payment gateway.
      */
     public PaymentService(String secretKey) {
         this.sdk = new PaymentGatewaySDK(secretKey);
     }
-
     /**
      * Creates a payment intent with the specified amount and currency.
-     * 
-     * @param amountInCents the amount to be charged, in cents
-     * @param currency the currency code (e.g., "USD")
-     * @return the client secret or unique ID for client-side use
-     * @throws PaymentException if there is an error during the payment intent creation
+     *
+     * @param amountInCents The amount to charge in cents.
+     * @param currency The currency in which to process the payment (e.g., "USD").
+     * @return The client secret associated with the payment intent.
+     * @throws PaymentException If an error occurs while creating the payment intent.
      */
     public String createPaymentIntent(long amountInCents, String currency) throws PaymentException {
-        // Invoke the SDK method to create a payment intent
-        PaymentIntent intent = sdk.createPaymentIntent(amountInCents, currency);
-        return intent.getClientSecret(); // Returns the client secret
+        PaymentIntent intent = sdk.createPaymentIntent(amountInCents, currency); // Create the payment intent via the SDK.
+        return intent.getClientSecret(); // Return the client secret for further processing on the client side.
     }
-
     /**
-     * Confirms the payment corresponding to the provided payment intent ID.
-     * 
-     * @param paymentIntentId the ID of the payment intent to confirm
-     * @return true if the payment is confirmed, false otherwise
-     * @throws PaymentException if there is an error during payment confirmation
+     * Confirms the payment using the provided payment intent ID.
+     *
+     * @param paymentIntentId The ID of the payment intent to confirm.
+     * @return true if the payment was successfully confirmed, false otherwise.
+     * @throws PaymentException If an error occurs while confirming the payment.
      */
     public boolean confirmPayment(String paymentIntentId) throws PaymentException {
-        // Confirm the payment through the SDK
-        return sdk.confirmPayment(paymentIntentId);
+        return sdk.confirmPayment(paymentIntentId); // Confirm the payment via the SDK.
     }
 }
