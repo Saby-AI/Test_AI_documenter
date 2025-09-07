@@ -1,34 +1,26 @@
-package model;
-import java.util.ArrayList;
-import java.util.List;
 public class Party {
-    private static int nextId = 1;
-    int partyid;
-    String partynumber;
-    String partyname;
-    String partytype;
-    String partygroup;
-    String partystatus;
-    List<Address> addresses = new ArrayList<>();
-    List<Communication> communications = new ArrayList<>();
-    Party(String name, String type, String group, String status) {
-        partyid = nextId++;
-        partynumber = genNumber(group);
-        partyname = name;
-        partytype = type;
-        partygroup = group;
-        partystatus = status;
+    private String name;
+    private int guests;
+    public Party(String name, int guests) {
+        this.name = name;
+        this.guests = guests;
     }
-    String genNumber(String g) {
-        return g.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
+    // public void setName(String name) {
+    // }
+    public String getName() {
+        return name;
     }
-    void addAddress(Address a) {
-        addresses.add(a);
+    // public void setGuests(int guests) {
+    // }
+    public int getGuests() {
+        return guests;
     }
-    void addCommunication(Communication c) {
-        communications.add(c);
+    public String formatDetails() {
+        return "Party Name: " + name + ", Number of Guests: " + guests;
     }
-    public String toString() {
-        return "Party {id:" + partyid + ", number:" + partynumber + ", name:" + partyname + ", type:" + partytype + ", group:" + partygroup + ", status:" + partystatus + ", addresses:" + addresses + ", communications:" + communications + "}";
+    public void printDetails() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Party Name: ").append(name).append(", Number of Guests: ").append(guests);
+        System.out.println(sb.toString());
     }
 }
