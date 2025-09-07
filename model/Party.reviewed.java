@@ -3,37 +3,39 @@ import java.util.ArrayList;
 import java.util.List;
 public class Party {
     private static int nextId = 1;
-    private int partyid;
-    private String partynumber;
-    private String partyname;
-    private String partytype;
-    private String partygroup;
-    private String partystatus;
-    private List<Address> addresses = new ArrayList<>();
-    private List<Communication> communications = new ArrayList<>();
-    // Constructor to initialize Party object
+    private int partyId;
+    private String partyNumber;
+    private String partyName;
+    private String partyType;
+    private String partyGroup;
+    private String partyStatus;
+    private List<Address> addresses;
+    private List<Communication> communications;
     public Party(String name, String type, String group, String status) {
-        this.partyid = nextId++;
-        this.partynumber = genNumber(group);
-        this.partyname = name;
-        this.partytype = type;
-        this.partygroup = group;
-        this.partystatus = status;
+        this.partyId = nextId++;
+        this.partyNumber = genNumber(group);
+        this.partyName = name;
+        this.partyType = type;
+        this.partyGroup = group;
+        this.partyStatus = status;
+        this.addresses = new ArrayList<>();
+        this.communications = new ArrayList<>();
     }
-    // Method to generate party number based on group
     private String genNumber(String group) {
         return group.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
     }
-    // Method to add address to the party
     public void addAddress(Address address) {
-        addresses.add(address);
+        if (address != null) {
+            addresses.add(address);
+        }
     }
-    // Method to add communication to the party
     public void addCommunication(Communication communication) {
-        communications.add(communication);
+        if (communication != null) {
+            communications.add(communication);
+        }
     }
     @Override
     public String toString() {
-        return "Party {id:" + partyid + ", number:" + partynumber + ", name:" + partyname + ", type:" + partytype + ", group:" + partygroup + ", status:" + partystatus + ", addresses:" + addresses + ", communications:" + communications + "}";
+        return "Party {id:" + partyId + ", number:" + partyNumber + ", name:" + partyName + ", type:" + partyType + ", group:" + partyGroup + ", status:" + partyStatus + ", addresses:" + addresses + ", communications:" + communications + "}";
     }
 }
