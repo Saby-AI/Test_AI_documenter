@@ -5,11 +5,11 @@ public class Communication {
     public Communication(String type, String cont) {
         this.contactType = type;
         this.contact = cont;
-        if (!valid(type, cont)) {
-            throw new IllegalArgumentException("Invalid contact: " + type);
+        if (!isValid(type, cont)) {
+            throw new IllegalArgumentException("Bad contact: " + type);
         }
     }
-    private boolean valid(String type, String contact) {
+    private boolean isValid(String type, String contact) {
         switch (type.toLowerCase()) {
             case "email":
                 return contact.matches("[w.-]+@[w.-]+.w{2,}");
