@@ -6,7 +6,7 @@ public class Communication {
         this.contactType = type;
         this.contact = cont;
         if (!isValid(type, cont)) {
-            throw new IllegalArgumentException("Invalid contact: " + type);
+            throw new IllegalArgumentException("Bad contact type: " + type);
         }
     }
     private boolean isValid(String type, String contact) {
@@ -20,6 +20,6 @@ public class Communication {
     }
     @Override
     public String toString() {
-        return "Comm{" + "type: " + contactType + ", contact: " + contact + "}";
+        return "Comm{ type: " + contactType + ", contact: " + contact + " }";
     }
 }
