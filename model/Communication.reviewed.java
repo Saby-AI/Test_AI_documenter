@@ -5,21 +5,23 @@ public class Communication {
     public Communication(String type, String cont) {
         this.contactType = type;
         this.contact = cont;
-        if (!isValid(type, cont)) {
-            throw new IllegalArgumentException("Bad contact type: " + type);
+        if (!valid(type, cont)) {
+            throw new IllegalArgumentException("Invalid contact: " + type);
         }
     }
-    private boolean isValid(String type, String contact) {
-        if (type.equalsIgnoreCase("email")) {
-            return contact.matches("[w.-]+@[w.-]+.w{2,}");
-        } else if (type.equalsIgnoreCase("phone") || type.equalsIgnoreCase("fax")) {
-            return contact.matches("+?[0-9- ]{7,15}");
-        } else {
-            return false;
+    private boolean valid(String type, String contact) {
+        switch (type.toLowerCase()) {
+            case "email":
+                return contact.matches("[w.-]+@[w.-]+.w{2,}");
+            case "phone":
+            case "fax":
+                return contact.matches("+?[0-9- ]{7,15}");
+            default:
+                return false;
         }
     }
     @Override
     public String toString() {
-        return "Comm{ type: " + contactType + ", contact: " + contact + " }";
+        return "Comm{" + "type: " + contactType + ", contact: " + contact + "}";
     }
 }
