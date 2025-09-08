@@ -1,35 +1,44 @@
-package model;
-import java.util.List;
-import java.util.ArrayList;
+/**
+ * The Party class represents a social gathering with a name and a number of guests.
+ * It provides methods to access party details and print them.
+ */
 public class Party {
-    private static int nextId = 1;
-    private int partyid;
-    private String partynumber;
-    private String partyname;
-    private String partytype;
-    private String partygroup;
-    private String partystatus;
-    private List<Address> addresses = new ArrayList<>();
-    private List<Communication> communications = new ArrayList<>();
-    public Party() {}
-    Party(String name, String type, String group, String status) {
-        partyid = nextId++;
-        partynumber = generateNumber(group);
-        partyname = name;
-        partytype = type;
-        partygroup = group;
-        partystatus = status;
+    private String name; // The name of the party
+    private int guests; // The number of guests attending the party
+    /**
+     * Constructor to initialize the party with a name and number of guests.
+     * @param name The name of the party
+     * @param guests The number of guests attending the party
+     */
+    public Party(String name, int guests) {
+        this.name = name;
+        this.guests = guests;
     }
-    private String generateNumber(String group) {
-        return group.substring(0, 2).toUpperCase() + "_" + System.currentTimeMillis();
+    /**
+     * Gets the name of the party.
+     * @return The name of the party
+     */
+    public String getName() {
+        return name;
     }
-    void addAddress(Address a) {
-        addresses.add(a);
+    /**
+     * Gets the number of guests attending the party.
+     * @return The number of guests
+     */
+    public int getGuests() {
+        return guests;
     }
-    void addCommunication(Communication c) {
-        communications.add(c);
+    /**
+     * Formats the details of the party into a string.
+     * @return A string containing the party name and number of guests
+     */
+    public String formatDetails() {
+        return "Party Name: " + name + ", Number of Guests: " + guests;
     }
-    public String toString() {
-        return "Party {id:" + partyid + ", number:" + partynumber + ", name:" + partyname + ", type:" + partytype + ", group:" + partygroup + ", status:" + partystatus + ", addresses:" + addresses + ", communications:" + communications + "}";
+    /**
+     * Prints the details of the party to the console.
+     */
+    public void printDetails() {
+        System.out.println(formatDetails());
     }
 }
