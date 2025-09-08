@@ -1,8 +1,8 @@
-/**
- * Date: 07/09/2025
- * User: Agentic_AI_System_Documenter
- * Code Language: Java
- */
+/*
+Date: 07/09/2025
+User: Agentic_AI_System_Documenter
+Code Language: Java
+*/
 package main.java;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,15 +14,15 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * GmailEmailWorkflowTest is a class designed to automate Gmail interaction workflows
- * such as logging in, composing drafts, and sending emails.
+ * The GmailEmailWorkflowTest class automates email interactions in Gmail
+ * using Selenium WebDriver for functional testing.
  */
 public class GmailEmailWorkflowTest {
     private WebDriver driver;
     /**
-     * Constructor for GmailEmailWorkflowTest that initializes the Chrome WebDriver.
+     * Initializes the Selenium WebDriver with specified Chrome options.
      *
-     * @throws Exception if unable to initialize the WebDriver.
+     * @throws Exception If the WebDriver initialization fails.
      */
     public GmailEmailWorkflowTest() throws Exception {
         ChromeOptions options = new ChromeOptions();
@@ -31,98 +31,86 @@ public class GmailEmailWorkflowTest {
         prefs.put("profile.password_manager_leak_detection", false);
         prefs.put("profile.password_manager_enabled", false);
         options.setExperimentalOption("prefs", prefs);
-        // Initialize RemoteWebDriver with the Selenium Grid hub URL
         URL hubUrl = new URL("http://selenium:4444/wd/hub");
         driver = new RemoteWebDriver(hubUrl, options);
     }
     /**
-     * Logs into Google Mail.
+     * Logs in to the Gmail account using the provided email and password.
      *
-     * @param email the user's email address.
-     * @param password the user's password.
-     * @throws InterruptedException if the thread is interrupted while sleeping.
+     * @param email The user's email address.
+     * @param password The user's password.
+     * @throws InterruptedException If the thread is interrupted during sleep.
      */
     public void login(String email, String password) throws InterruptedException {
         driver.get("https://mail.google.com");
-        Thread.sleep(3000);
-        // Find email input field and enter the email
+        Thread.sleep(3000); // Consider replacing with WebDriverWait
         driver.findElement(By.name("identifier")).sendKeys(email);
         Thread.sleep(3000);
-        // Click the 'Next' button after entering email
         driver.findElement(By.id("identifierNext")).click();
         Thread.sleep(3000);
-        // Find password input field and enter the password
         driver.findElement(By.name("password")).sendKeys(password);
         Thread.sleep(3000);
-        // Click the 'Next' button after entering password
         driver.findElement(By.id("passwordNext")).click();
         Thread.sleep(3000);
     }
     /**
-     * Composes a new email and saves it as a draft.
+     * Composes a new email draft and saves it with an attachment.
      *
-     * @param recipient the recipient's email address.
-     * @param subject the subject of the email.
-     * @param body the body content of the email.
-     * @param attachmentPath the path to the attachment file.
-     * @throws InterruptedException if the thread is interrupted while sleeping.
+     * @param recipient The recipient's email address.
+     * @param subject The subject of the email.
+     * @param body The body content of the email.
+     * @param attachmentPath The file path for attachment.
+     * @throws InterruptedException If the thread is interrupted during sleep.
      */
     public void composeAndSaveDraft(String recipient, String subject, String body, String attachmentPath) throws InterruptedException {
         Thread.sleep(3000);
-        // Click the 'Compose' button
-        driver.findElement(By.xpath("//div[contains(text(), 'Compose')]")).click();
+        driver.findElement(By.xpath("//div[contains(text(), 'Compose')]"))
+                .click();
         Thread.sleep(3000);
-        // Enter recipient's address
         driver.findElement(By.name("to")).sendKeys(recipient);
         Thread.sleep(3000);
-        // Enter the subject of the email
         driver.findElement(By.name("subjectbox")).sendKeys(subject);
         Thread.sleep(3000);
-        // Enter the body of the email
         driver.findElement(By.xpath("//div[@aria-label='Message Body']")).sendKeys(body);
         Thread.sleep(3000);
-        // Upload an attachment
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(attachmentPath);
         Thread.sleep(3000);
-        // Close the draft
-        driver.findElement(By.xpath("//div[contains(text(), 'Close')]")).click();
+        driver.findElement(By.xpath("//div[contains(text(), 'Close')]"))
+                .click();
         Thread.sleep(3000);
     }
     /**
-     * Verifies the draft email by searching for it in the Drafts folder.
+     * Verifies that a draft exists with the specified subject.
      *
-     * @param subject the subject of the draft email to verify.
-     * @throws InterruptedException if the thread is interrupted while sleeping.
+     * @param subject The subject of the draft email to verify.
+     * @throws InterruptedException If the thread is interrupted during sleep.
      */
     public void verifyDraft(String subject) throws InterruptedException {
-        // Click the 'Drafts' folder
-        driver.findElement(By.xpath("//a[contains(text(), 'Drafts')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(), 'Drafts')]"))
+                .click();
         Thread.sleep(3000);
-        // Find the draft email element
-        WebElement draftEmail = driver.findElement(By.xpath("//span[contains(text(), '" + subject + "')]"));
+        WebElement draftEmail = driver.findElement(By.xpath("//span[contains(text(), '" + subject + '"')]"));
         scrollIntoView(draftEmail);
         Thread.sleep(3000);
-        // Click to open the draft email
         draftEmail.click();
         Thread.sleep(3000);
     }
     /**
-     * Sends the drafted email.
+     * Sends the currently open draft email.
      *
-     * @throws InterruptedException if the thread is interrupted while sleeping.
+     * @throws InterruptedException If the thread is interrupted during sleep.
      */
     public void sendDraft() throws InterruptedException {
-        // Click the 'Send' button
-        driver.findElement(By.xpath("//div[contains(text(), 'Send')]")).click();
+        driver.findElement(By.xpath("//div[contains(text(), 'Send')]"))
+                .click();
         Thread.sleep(3000);
     }
     /**
-     * Scrolls the specified element into view.
+     * Scrolls the specified WebElement into view.
      *
-     * @param element the WebElement to scroll into view.
+     * @param element The WebElement to scroll into view.
      */
     public void scrollIntoView(WebElement element) {
-        // Create actions to perform scrolling
         Actions actions = new Actions(this.driver);
         actions.moveToElement(element);
         actions.perform();
