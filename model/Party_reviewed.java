@@ -2,6 +2,9 @@ public class Party {
     private String name;
     private int guests;
     public Party(String name, int guests) {
+        if (guests < 0) {
+            throw new IllegalArgumentException("Number of guests cannot be negative.");
+        }
         this.name = name;
         this.guests = guests;
     }
@@ -12,7 +15,7 @@ public class Party {
         return guests;
     }
     public String formatDetails() {
-        return "Party Name: " + name + ", Number of Guests: " + guests;
+        return String.format("Party Name: %s, Number of Guests: %d", name, guests);
     }
     public void printDetails() {
         System.out.println(formatDetails());
