@@ -1,0 +1,38 @@
+
+Feature: Gmail Email Workflow - Compose, Save as Draft, and Send Email
+
+  Scenario: User logs in to Gmail, composes an email with an attachment, saves it as draft, and sends it
+
+    Given I open the Chrome browser
+    And I navigate to "https://mail.google.com"
+    When I enter the email address "user@example.com" in the login field
+    And I click the "Next" button on the login screen
+    And I enter the password "correct_password" in the password field
+    And I click the "Next" button on the password screen
+    Then I should be redirected to the Gmail inbox page
+
+    When I wait for the inbox to fully load
+    And I click on the "Compose" button
+    And I enter "recipient@example.com" into the "To" field of the new email
+    And I enter "Test Subject" into the "Subject" field
+    And I type "This is the body of the test email." into the email body field
+    And I click the "Attach files" button
+    And I select the file "test_attachment.pdf" from my local system
+    And I wait for the file to upload
+    And I close the compose window to save the email as a draft
+    Then I should see a notification saying "Draft saved"
+
+    When I click on the "Drafts" tab in the left navigation menu
+    Then I should see an email with subject "Test Subject" listed in the Drafts folder
+
+    When I click to open the draft email with subject "Test Subject"
+    Then the "To" field should contain "recipient@example.com"
+    And the "Subject" field should contain "Test Subject"
+    And the email body should contain "This is the body of the test email."
+    And I should see the file "test_attachment.pdf" attached
+
+    When I click the "Send" button in the draft email
+    Then I should see a confirmation message saying "Message sent"
+
+    When I click on the "Sent" tab in the left navigation menu
+    Then I should see an email with subject "Test Subject" listed in the Sent folder
