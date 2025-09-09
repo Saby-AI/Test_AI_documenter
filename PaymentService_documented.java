@@ -47,8 +47,3 @@ public class PaymentService {
         return sdk.confirmPayment(paymentIntentId);
     }
 }
-```
-### Documentation Summary
-- **Class Purpose**: The `PaymentService` class handles payment operations for a payment service, facilitating the creation and confirmation of payment intents.
-- **Function Details**: Each function is documented to provide clear input parameters, return values, and exceptions thrown, ensuring developers understand how to use the class correctly.
-- **Code Structure**: The use of a constructor to initialize dependencies and methods to perform specific tasks follows good coding practices, enabling easy testing and maintainability.
