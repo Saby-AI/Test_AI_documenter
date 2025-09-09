@@ -1,42 +1,36 @@
 /**
-Date: 07/09/2025
-User: Agentic_AI_System_Documenter
-Code Language: Java
-*/
-/**
- * This class handles the processing of payments through the Payment Gateway SDK.
- * It provides methods to create and confirm payment intents.
+ * The PaymentService class is responsible for creating and confirming payment intents
+ * using an external payment gateway SDK.
  */
 public class PaymentService {
-    // The PaymentGatewaySDK instance used for connecting to the payment service.
+    /** Instance of the payment gateway SDK */
     private final PaymentGatewaySDK sdk;
     /**
-     * Constructs a PaymentService with the specified secret key.
+     * Constructor initializes the PaymentService with a secret key.
      *
-     * @param secretKey the secret key used to authenticate with the payment gateway.
+     * @param secretKey The secret key for authenticating with the payment gateway.
      */
     public PaymentService(String secretKey) {
         this.sdk = new PaymentGatewaySDK(secretKey);
     }
     /**
-     * Creates a payment intent with the specified amount and currency.
+     * Creates a payment intent with the given amount and currency.
      *
-     * @param amountInCents the amount in cents to be charged.
-     * @param currency      the currency code (e.g., "USD").
-     * @return a client secret for the payment intent.
-     * @throws PaymentException if the payment intent cannot be created.
+     * @param amountInCents The amount in cents to be charged.
+     * @param currency The currency code (e.g., "USD").
+     * @return The client secret of the payment intent, used for client-side confirmation.
+     * @throws PaymentException When there is an error creating the payment intent.
      */
     public String createPaymentIntent(long amountInCents, String currency) throws PaymentException {
-        // Check for valid currency codes and amount ranges here (omitted for brevity).
         PaymentIntent intent = sdk.createPaymentIntent(amountInCents, currency);
-        return intent.getClientSecret(); // Returns a unique ID for client-side use.
+        return intent.getClientSecret(); // Returns client secret for frontend use
     }
     /**
      * Confirms a payment using the provided payment intent ID.
      *
-     * @param paymentIntentId the ID of the payment intent to confirm.
-     * @return true if the payment was successfully confirmed, false otherwise.
-     * @throws PaymentException if the payment confirmation fails.
+     * @param paymentIntentId The ID of the payment intent to confirm.
+     * @return True if the payment was confirmed successfully, otherwise false.
+     * @throws PaymentException When there is an error confirming the payment.
      */
     public boolean confirmPayment(String paymentIntentId) throws PaymentException {
         return sdk.confirmPayment(paymentIntentId);
