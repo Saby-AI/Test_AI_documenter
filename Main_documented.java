@@ -1,40 +1,48 @@
 ```java
 /*
-Date: 12/09/2025
+Date: 04/10/2025
 User: Agentic_AI_System_Documenter
 Code Language: Java
 */
-import model.Address;
-import model.Communication;
-import model.Party;
+import model.Address; // Model representation for address details
+import model.Communication; // Model representation for communication methods
+import model.Party; // Main entity encapsulating a party (customer/vendor)
 /**
- * Main class that executes the application.
- * This class creates instances of Party for Customers and Vendors,
- * and demonstrates the functionality of managing addresses and communications.
+ * This is the entry point for the application, managing the creation
+ * and display of parties including their addresses and communication
+ * details.
  */
 public class Main {
+    /**
+     * Main method to execute the program, showcasing the creation
+     * of parties and their attributes (addresses and communications).
+     *
+     * @param args Command-line arguments (not utilized)
+     */
     public static void main(String[] args) {
-        // Creating a customer party instance
-        Party customer = new Party("Alice Johnson", "Person", "Customer", "Active");
-        // Adding addresses for the customer
-        customer.addAddress(new Address("Bill_To", "123 Billing St", "Suite 100", "New York", "NY", "USA", "10001"));
-        customer.addAddress(new Address("Ship_To", "456 Shipping Ave", "", "Brooklyn", "NY", "USA", "11201"));
-        // Adding communication methods for the customer
-        customer.addCommunication(new Communication("Email", "alice@example.com"));
-        customer.addCommunication(new Communication("Phone", "+1-555-123-4567"));
-        // Print details of the customer
-        System.out.println(customer);
-        // Creating a vendor party instance
-        Party vendor = new Party("Tech Supplies Inc.", "Organization", "Vendor", "Active");
-        // Adding addresses for the vendor
-        vendor.addAddress(new Address("Bill_To", "789 Tech Blvd", "", "San Jose", "CA", "USA", "95112"));
-        vendor.addAddress(new Address("Ship_To", "321 Supply Rd", "", "Fremont", "CA", "USA", "94536"));
-        // Adding communication methods for the vendor
-        vendor.addCommunication(new Communication("Fax", "+1-555-987-6543"));
-        vendor.addCommunication(new Communication("Email", "support@techsupplies.com"));
-        // Print details of the vendor
-        System.out.println(vendor);
+        // Creating customer party instance
+        Party c = new Party("Alice Johnson", "Person", "Customer", "Active"); // Customer creation
+        // Adding billing address for customer
+        c.addAddress(new Address("Bill_To", "123 Billing St", "Suite 100", "New York", "NY", "USA", "10001"));
+        // Adding shipping address for customer
+        c.addAddress(new Address("Ship_To", "456 Shipping Ave", "", "Brooklyn", "NY", "USA", "11201"));
+        // Adding communication methods for customer
+        c.addCommunication(new Communication("Email", "alice@example.com"));
+        c.addCommunication(new Communication("Phone", "+1-555-123-4567"));
+        // Output customer details
+        System.out.println(c);
+        // Creating vendor party instance
+        Party v = new Party("Tech Supplies Inc.", "Organization", "Vendor", "Active"); // Vendor creation
+        // Adding billing address for vendor
+        v.addAddress(new Address("Bill_To", "789 Tech Blvd", "", "San Jose", "CA", "USA", "95112"));
+        // Adding shipping address for vendor
+        v.addAddress(new Address("Ship_To", "321 Supply Rd", "", "Fremont", "CA", "USA", "94536"));
+        // Adding communication methods for vendor
+        v.addCommunication(new Communication("Fax", "+1-555-987-6543"));
+        v.addCommunication(new Communication("Email", "support@techsupplies.com"));
+        // Output vendor details
+        System.out.println(v);
     }
 }
 ```
-This analysis and documentation provide a solid foundation for improving the code quality and moving towards best practices in development.
+This comprehensive code documentation maintains clarity and ensures that the underlying business logic and structure are well understood, in line with enterprise-level documentation requirements.
