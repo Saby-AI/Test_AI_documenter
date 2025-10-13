@@ -1,49 +1,15 @@
-```java
-/*
-Date: 07/10/2025
-User: Agentic_AI_System_Documenter
-Code Language: Java
-*/
 /**
- * This class represents an Address entity, which contains all necessary fields
- * to describe a physical address associated with a party.
- * <p>
- * An address contains a unique ID, type, and various fields such as street lines,
- * city, state, country, and postal code to fully specify a location.
- * </p>
- */
-package model;
-public class Address {
-    // Static counter to maintain unique address IDs
-    static int addressCounter = 1;
-    // Unique identifier for this address
-    private int partyAddressId;
-    // Type of address (e.g., home, business)
-    private String addressType;
-    // First line of the address
-    private String addressLine1;
-    // Second line of the address (optional)
-    private String addressLine2;
-    // City of the address
-    private String city;
-    // State or province of the address
-    private String state;
-    // Country of the address
-    private String country;
-    // Postal code for mailing purposes
-    private String postalCode;
-    /**
      * Constructs a new Address object with the specified parameters.
      *
-     * @param type the type of address (home, work, etc.)
-     * @param line1 the primary address line
-     * @param line2 the secondary address line (optional)
-     * @param city the city of the address
-     * @param state the state or province of the address
-     * @param country the country of the address
-     * @param postalcode the postal code for the address
+     * @param type           The type of the address.
+     * @param line1         The first line of the address.
+     * @param line2         The second line of the address, optional. Can be null.
+     * @param city          The city of the address.
+     * @param state         The state of the address.
+     * @param country       The country of the address.
+     * @param postalCode    The postal code of the address.
      */
-    public Address(String type, String line1, String line2, String city, String state, String country, String postalcode) {
+    public Address(String type, String line1, String line2, String city, String state, String country, String postalCode) {
         this.partyAddressId = addressCounter++;
         this.addressType = type;
         this.addressLine1 = line1;
@@ -51,19 +17,18 @@ public class Address {
         this.city = city;
         this.state = state;
         this.country = country;
-        this.postalCode = postalcode;
+        this.postalCode = postalCode;
     }
     /**
      * Returns a string representation of the Address object.
      *
-     * @return string containing information about the address
+     * @return A string in the form of "Address{ id:<id>, type:<type>, line1:<line1>, line2:<line2>,
+     *         city:<city>, state:<state>, country:<country>, postal:<postalCode> }"
      */
     @Override
     public String toString() {
-        return "Address { id: " + partyAddressId + ", type: " + addressType +
-               ", line1: " + addressLine1 + ", line2: " + addressLine2 +
-               ", city: " + city + ", state: " + state +
-               ", country: " + country + ", postal: " + postalCode + " }";
+        return "Address{ id:" + partyAddressId + ", type:" + addressType + ", line1:" + addressLine1 +
+               ", line2:" + addressLine2 + ", city:" + city + ", state:" + state +
+               ", country:" + country + ", postal:" + postalCode + "}";
     }
 }
-```
