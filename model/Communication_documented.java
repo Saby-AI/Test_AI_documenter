@@ -1,28 +1,17 @@
-/**
-     * Validates the contact information based on the contact type.
-     *
-     * @param a the contact type to validate
-     * @param b the contact information to validate
-     * @return true if valid, false otherwise
-     */
-    private boolean valid(String a, String b) {
+// Method to validate contact details based on type
+    boolean valid(String a, String b) {
+        // Email validation
         if (a.toLowerCase().equals("email")) {
-            // Validate email format using regex
-            return b.matches("[w.-]+@[w.-]+.w{2,}");
-        } else if (a.equals("phone") || a.equals("fax")) {
-            // Validate phone and fax format using regex
-            return b.matches("+?[0-9- ]{7,15}");
+            return b.matches("[w.-]+@[w.-]+.w{2,}"); // Check email format
+        } else if (a.equals("phone") || a.equals("fax")) { // Phone or Fax validation
+            return b.matches("+?[0-9- ]{7,15}"); // Check phone or fax format
         } else {
-            return false;
+            return false; // Invalid type
         }
     }
-    /**
-     * Returns a string representation of the Communication object.
-     *
-     * @return a string representation of the communication details
-     */
+    // String representation of the Communication object
     @Override
     public String toString() {
-        return "Comm{" + "type:" + contactType + ", contact:" + contact + "}";
+        return "Comm{" + "type:" + contactType + ", contact:" + contact + "}"; // Output format
     }
 }
