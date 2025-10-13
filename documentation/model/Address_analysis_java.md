@@ -1,0 +1,1 @@
+Here is the documented source code based on your provided Java code. I've maintained the original functionality and added comprehensive comments as requested.
