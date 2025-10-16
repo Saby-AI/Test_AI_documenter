@@ -1,48 +1,50 @@
-```cpp
-/*
-Date: 13/10/2025
+/**
+Date: 14/10/2025
 User: Agentic_AI_System_Documenter
 Code Language: C++
 */
+/*
+include necessary headers for input/output operations
+and libcurl for making HTTP requests.
+*/
+#include <stdio.h>   // Standard I/O functions
+#include <curl/curl.h>  // CURL library for HTTP requests
 /**
- * Creates a payment intent by sending a request to the payment gateway API.
+ * @brief Creates a payment intent with the specified amount and currency.
  *
- * @param secret_key - The API key for authentication against the payment gateway.
- * @param amount_in_cents - The amount to be charged, specified in cents.
- * @param currency - The currency code (e.g., 'usd', 'eur') for the payment.
+ * This function utilizes libcurl to send a POST request to the payment gateway
+ * to create a payment intent. Ensure to provide appropriate values for secret_key,
+ * amount_in_cents, and currency according to your payment provider's specifications.
  *
- * @return 0 if the payment intent is created successfully, or -1 if an error occurs.
+ * @param secret_key The API key to authenticate the request.
+ * @param amount_in_cents The amount of money to be processed in cents.
+ * @param currency The currency type (e.g., "usd").
  *
- * Note:
- * This function lacks robustness in error handling and requires enhancements for
- * dynamic handling of parameters as well as security considerations for sensitive data.
+ * @return Returns 0 on success, or -1 on failure.
+ *
+ * @note In a real-world application, error handling, JSON parsing, and dynamic
+ *       configuration should be implemented.
  */
 int create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {
-    CURL *curl;                 // Pointer to a cURL handle
-    CURLcode res;              // Variable to store the result of cURL operations
-    // Initialize cURL
-    curl = curl_easy_init();
+    CURL *curl;                     // Initialize a CURL object
+    CURLcode res;                  // Variable to hold the result of curl operations
+    curl = curl_easy_init();       // Initialize the CURL handle
     if (curl) {
-        // Set the API endpoint for creating payment intents
+        // Set the URL for the payment gateway's API endpoint
         curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
-        // Prepare POST data, using dynamic parameters for flexibility; currently hardcoded
-        char post_fields[100]; // Buffer to hold the dynamically created post fields
-        snprintf(post_fields, sizeof(post_fields), "amount=%ld&currency=%s", amount_in_cents, currency);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields); // Set POST fields
-        // Uncomment the header setting below after proper header formatting
+        // Set the POST fields; ensure to replace this with dynamic values
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "amount=1000&currency=usd"); // Example data
+        // For securing the request, include headers for authorization (commented out for illustration)
         // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-        // Execute the POST request
+        // Perform the request, res will get the return code
         res = curl_easy_perform(curl);
+        // Check for errors and report them
         if (res != CURLE_OK) {
-            // Output error to stderr and return -1 indicating failure
             fprintf(stderr, "curl_easy_perform() failed: %s
 ", curl_easy_strerror(res));
-            return -1; // Error code
+            return -1;  // Indicate failure
         }
-        // Cleanup cURL resources
-        curl_easy_cleanup(curl);
+        curl_easy_cleanup(curl);  // Cleanup the CURL handle
     }
-    return 0; // Successful operation
+    return 0;  // Indicate success
 }
-```
-This completed analysis and documentation ensure a comprehensive understanding of the code and its implications for business operations while highlighting necessary improvements for enhanced security, performance, and maintainability.
