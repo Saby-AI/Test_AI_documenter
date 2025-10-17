@@ -1,0 +1,16 @@
+{
+	"servers": {
+		"encora-aiva": {
+			"url": "http://localhost:8000/sse",
+			"type": "sse"
+		},
+		// "my-mcp-server-docker": {
+		// 	"url": "http://code-review-document-api.bluehill-aa980ff5.eastus.azurecontainerapps.io/sse",
+		// 	"type": "sse"
+		// },
+		"my-mcp-server-docker": {
+			"url": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/sse",
+			"type": "sse"
+		}
+	}
+}
