@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "a5e72015-d075-4bcb-a97b-11e2a72237e2",
+		"name": "AIVA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43325278"
+	},
+	"item": [
+		{
+			"name": "root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/health",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tools",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/tools",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						"tools"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "document_code",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"prompt\": \"#include <stdio.h>\\n#include <curl/curl.h>\\n\\n// This is a highly simplified example and lacks error handling, JSON parsing, etc.\\n// In a real C application, you would use a JSON library and robust error handling.\\n\\nint create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {\\n    CURL *curl;\\n    CURLcode res;\\n\\n    curl = curl_easy_init();\\n    if (curl) {\\n        // Example URL (replace with actual gateway API endpoint)\\n        curl_easy_setopt(curl, CURLOPT_URL, \\\"https://api.paymentgateway.com/v1/payment_intents\\\");\\n        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, \\\"amount=1000&currency=usd\\\"); // Example data\\n        // Add headers for authorization (e.g., Authorization: Bearer <secret_key>)\\n        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\\n\\n        res = curl_easy_perform(curl);\\n        if (res != CURLE_OK) {\\n            fprintf(stderr, \\\"curl_easy_perform() failed: %s\\\\n\\\", curl_easy_strerror(res));\\n            return -1;\\n        }\\n        curl_easy_cleanup(curl);\\n    }\\n    return 0;\\n}\\n\",\r\n  \"path\": \"payment_service.cpp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/document_code",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"document_code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze_code",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"prompt\": \"#include <stdio.h>\\n#include <curl/curl.h>\\n\\n// This is a highly simplified example and lacks error handling, JSON parsing, etc.\\n// In a real C application, you would use a JSON library and robust error handling.\\n\\nint create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {\\n    CURL *curl;\\n    CURLcode res;\\n\\n    curl = curl_easy_init();\\n    if (curl) {\\n        // Example URL (replace with actual gateway API endpoint)\\n        curl_easy_setopt(curl, CURLOPT_URL, \\\"https://api.paymentgateway.com/v1/payment_intents\\\");\\n        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, \\\"amount=1000&currency=usd\\\"); // Example data\\n        // Add headers for authorization (e.g., Authorization: Bearer <secret_key>)\\n        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\\n\\n        res = curl_easy_perform(curl);\\n        if (res != CURLE_OK) {\\n            fprintf(stderr, \\\"curl_easy_perform() failed: %s\\\\n\\\", curl_easy_strerror(res));\\n            return -1;\\n        }\\n        curl_easy_cleanup(curl);\\n    }\\n    return 0;\\n}\\n\",\r\n  \"path\": \"payment_service.cpp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/analyze_code",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						"analyze_code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost_document_code",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"prompt\": \"#include <stdio.h>\\n#include <curl/curl.h>\\n\\n// This is a highly simplified example and lacks error handling, JSON parsing, etc.\\n// In a real C application, you would use a JSON library and robust error handling.\\n\\nint create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {\\n    CURL *curl;\\n    CURLcode res;\\n\\n    curl = curl_easy_init();\\n    if (curl) {\\n        // Example URL (replace with actual gateway API endpoint)\\n        curl_easy_setopt(curl, CURLOPT_URL, \\\"https://api.paymentgateway.com/v1/payment_intents\\\");\\n        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, \\\"amount=1000&currency=usd\\\"); // Example data\\n        // Add headers for authorization (e.g., Authorization: Bearer <secret_key>)\\n        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\\n\\n        res = curl_easy_perform(curl);\\n        if (res != CURLE_OK) {\\n            fprintf(stderr, \\\"curl_easy_perform() failed: %s\\\\n\\\", curl_easy_strerror(res));\\n            return -1;\\n        }\\n        curl_easy_cleanup(curl);\\n    }\\n    return 0;\\n}\\n\",\r\n  \"path\": \"payment_service.cpp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/document_code",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"document_code"
+					]
+				},
+				"description": "Local"
+			},
+			"response": []
+		},
+		{
+			"name": "local_analyze_code",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"prompt\": \"#include <stdio.h>\\n#include <curl/curl.h>\\n\\n// This is a highly simplified example and lacks error handling, JSON parsing, etc.\\n// In a real C application, you would use a JSON library and robust error handling.\\n\\nint create_payment_intent_c(const char* secret_key, long amount_in_cents, const char* currency) {\\n    CURL *curl;\\n    CURLcode res;\\n\\n    curl = curl_easy_init();\\n    if (curl) {\\n        // Example URL (replace with actual gateway API endpoint)\\n        curl_easy_setopt(curl, CURLOPT_URL, \\\"https://api.paymentgateway.com/v1/payment_intents\\\");\\n        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, \\\"amount=1000&currency=usd\\\"); // Example data\\n        // Add headers for authorization (e.g., Authorization: Bearer <secret_key>)\\n        // curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\\n\\n        res = curl_easy_perform(curl);\\n        if (res != CURLE_OK) {\\n            fprintf(stderr, \\\"curl_easy_perform() failed: %s\\\\n\\\", curl_easy_strerror(res));\\n            return -1;\\n        }\\n        curl_easy_cleanup(curl);\\n    }\\n    return 0;\\n}\\n\",\r\n  \"path\": \"payment_service.cpp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/analyze_code",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"analyze_code"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch_file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"repository_url\": \"https://github.com/Saby-AI/Test_AI_documenter\",\r\n  \"file_path\": \"payment_service.cpp\",\r\n  \"branch\": \"main\"\r\n}"
+				},
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/github/fetch_file",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						"github",
+						"fetch_file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "github_fetch_file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"repository_url\": \"https://github.com/Saby-AI/Test_AI_documenter\",\r\n  \"file_path\": \"payment_service.cpp\",\r\n  \"branch\": \"main\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/github/fetch_file",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"github",
+						"fetch_file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "github_fetch_local",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"repository_url\": \"https://github.com/Saby-AI/Test_AI_documenter\",\r\n  \"file_path\": \"payment_service.cpp\",\r\n  \"branch\": \"main\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/github/fetch_file",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"github",
+						"fetch_file"
+					]
+				},
+				"description": "Local"
+			},
+			"response": []
+		},
+		{
+			"name": "github_commit_file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"repository_url\": \"https://github.com/Saby-AI/Test_AI_documenter\",\r\n  \"file_path\": \"payment_service.cpp\",\r\n  \"content\": \"Test String\",\r\n  \"commit_message\": \"AIVA\",\r\n  \"branch\": \"main\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io/github/commit_file",
+					"protocol": "https",
+					"host": [
+						"code-documenter-api",
+						"icyfield-fc36f615",
+						"eastus",
+						"azurecontainerapps",
+						"io"
+					],
+					"path": [
+						"github",
+						"commit_file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "local_github_commit_file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"repository_url\": \"https://github.com/Saby-AI/Test_AI_documenter\",\r\n  \"file_path\": \"payment_service.cpp\",\r\n  \"content\": \"Test String\",\r\n  \"commit_message\": \"AIVA\",\r\n  \"branch\": \"main\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/github/commit_file",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"github",
+						"commit_file"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
