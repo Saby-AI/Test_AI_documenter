@@ -1,0 +1,525 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Encora AIVA Code Documenter API",
+    "description": "AI-powered code documentation and analysis tools API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://code-documenter-api.icyfield-fc36f615.eastus.azurecontainerapps.io"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "description": "Root endpoint - API welcome message",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools": {
+      "get": {
+        "summary": "List Tools",
+        "description": "List all available tools and their operations",
+        "operationId": "list_tools_tools_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/code_analysis_guide": {
+      "get": {
+        "summary": "Get Code Analysis Guide",
+        "description": "Get comprehensive guide for code analysis and documentation",
+        "operationId": "get_code_analysis_guide_code_analysis_guide_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document_code": {
+      "post": {
+        "summary": "Document Code",
+        "description": "Document code using AI agent",
+        "operationId": "document_code_document_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analyze_code": {
+      "post": {
+        "summary": "Analyze Code",
+        "description": "Analyze code using AI agent",
+        "operationId": "analyze_code_analyze_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToolRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/github/fetch_file": {
+      "post": {
+        "summary": "Fetch Github File",
+        "description": "Fetch file content from GitHub repository",
+        "operationId": "fetch_github_file_github_fetch_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubFileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/github/commit_file": {
+      "post": {
+        "summary": "Commit Github File",
+        "description": "Commit file to GitHub repository",
+        "operationId": "commit_github_file_github_commit_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GitHubCommitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/github/analyze_repository": {
+      "post": {
+        "summary": "Analyze Github Repository",
+        "description": "Analyze GitHub repository structure",
+        "operationId": "analyze_github_repository_github_analyze_repository_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepositoryAnalysisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document_multiple_files": {
+      "post": {
+        "summary": "Document Multiple Files",
+        "description": "Generate documentation for multiple files",
+        "operationId": "document_multiple_files_document_multiple_files_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultiFileDocumentationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GitHubCommitRequest": {
+        "properties": {
+          "repository_url": {
+            "type": "string",
+            "title": "Repository Url"
+          },
+          "file_path": {
+            "type": "string",
+            "title": "File Path"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "commit_message": {
+            "type": "string",
+            "title": "Commit Message"
+          },
+          "branch": {
+            "type": "string",
+            "title": "Branch",
+            "default": "main"
+          }
+        },
+        "type": "object",
+        "required": [
+          "repository_url",
+          "file_path",
+          "content",
+          "commit_message"
+        ],
+        "title": "GitHubCommitRequest"
+      },
+      "GitHubFileRequest": {
+        "properties": {
+          "repository_url": {
+            "type": "string",
+            "title": "Repository Url"
+          },
+          "file_path": {
+            "type": "string",
+            "title": "File Path"
+          },
+          "branch": {
+            "type": "string",
+            "title": "Branch",
+            "default": "main"
+          }
+        },
+        "type": "object",
+        "required": [
+          "repository_url",
+          "file_path"
+        ],
+        "title": "GitHubFileRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MultiFileDocumentationRequest": {
+        "properties": {
+          "repository_url": {
+            "type": "string",
+            "title": "Repository Url"
+          },
+          "files_to_document": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Files To Document"
+          },
+          "branch": {
+            "type": "string",
+            "title": "Branch",
+            "default": "main"
+          }
+        },
+        "type": "object",
+        "required": [
+          "repository_url",
+          "files_to_document"
+        ],
+        "title": "MultiFileDocumentationRequest"
+      },
+      "RepositoryAnalysisRequest": {
+        "properties": {
+          "repository_url": {
+            "type": "string",
+            "title": "Repository Url"
+          },
+          "branch": {
+            "type": "string",
+            "title": "Branch",
+            "default": "main"
+          }
+        },
+        "type": "object",
+        "required": [
+          "repository_url"
+        ],
+        "title": "RepositoryAnalysisRequest"
+      },
+      "ToolRequest": {
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Path"
+          }
+        },
+        "type": "object",
+        "required": [
+          "prompt"
+        ],
+        "title": "ToolRequest"
+      },
+      "ToolResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "result": {
+            "title": "Result"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "title": "ToolResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
