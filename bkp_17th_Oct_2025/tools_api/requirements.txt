@@ -1,0 +1,9 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+# Use a newer Pydantic that has prebuilt wheels for Python 3.13 to avoid Rust builds
+pydantic>=2.8,<3.0
+azure-ai-projects==1.0.0b3
+azure-identity==1.15.0
+requests==2.31.0
+python-dotenv==1.0.0
+#typing-extensions==4.8.0
