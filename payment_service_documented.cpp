@@ -1,65 +1,52 @@
-```java
+```cpp
 /*
 Date: 21/10/2025
 User: Agentic_AI_System_Documenter
-Code Language: Java
+Code Language: C++
 */
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-import java.util.List;
 /**
- * UserController handles user-related operations such as registration, authentication, and data retrieval.
+ * @brief Creates a payment intent with the specified amount and currency.
+ *
+ * This function interacts with the payment gateway API to create a payment intent.
+ * It requires a valid secret key for authorization, the amount in cents, and the currency code.
+ *
+ * @param secret_key The API secret key for authentication with the payment gateway.
+ * @param amount_in_cents The amount to be charged, specified in cents.
+ * @param currency The currency code (e.g., "usd", "eur") for the transaction.
+ * @return int Returns 0 on success, or -1 on failure.
  */
-@RestController
-@RequestMapping("/api/users")
-public class UserController {
-    private final UserService userService;
-    /**
-     * Constructor for UserController.
-     *
-     * @param userService the service used for user operations
-     */
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-    /**
-     * Registers a new user in the system.
-     *
-     * @param user the user object containing registration details
-     * @return ResponseEntity indicating the result of the registration
-     */
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        userService.register(user);
-        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
-    }
-    /**
-     * Authenticates a user based on provided credentials.
-     *
-     * @param credentials the user's login credentials
-     * @return ResponseEntity containing authentication result
-     */
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody Credentials credentials) {
-        boolean isAuthenticated = userService.authenticate(credentials);
-        if (isAuthenticated) {
-            return new ResponseEntity<>("Login successful", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+int create_payment_intent(const char* secret_key, long amount_in_cents, const char* currency) {
+    CURL *curl; // Pointer to the cURL handle
+    CURLcode res; // Variable to store the result of the cURL operation
+    // Initialize cURL
+    curl = curl_easy_init();
+    if (curl) {
+        // Set the API endpoint URL for creating payment intents
+        curl_easy_setopt(curl, CURLOPT_URL, "https://api.paymentgateway.com/v1/payment_intents");
+        // Prepare the POST fields with dynamic values for amount and currency
+        char post_fields[256];
+        snprintf(post_fields, sizeof(post_fields), "amount=%ld&currency=%s", amount_in_cents, currency);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_fields);
+        // Set the authorization header
+        struct curl_slist *headers = NULL;
+        char auth_header[256];
+        snprintf(auth_header, sizeof(auth_header), "Authorization: Bearer %s", secret_key);
+        headers = curl_slist_append(headers, auth_header);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        // Perform the HTTP request
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            // Log the error message if the request fails
+            fprintf(stderr, "curl_easy_perform() failed: %s
+", curl_easy_strerror(res));
+            curl_slist_free_all(headers); // Clean up headers
+            curl_easy_cleanup(curl); // Clean up cURL resources
+            return -1; // Return -1 to indicate failure
         }
+        // Clean up cURL resources
+        curl_slist_free_all(headers); // Clean up headers
+        curl_easy_cleanup(curl); // Clean up cURL resources
     }
-    /**
-     * Retrieves a list of all users in the system.
-     *
-     * @return ResponseEntity containing the list of users
-     */
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+    return 0; // Return 0 to indicate success
 }
 ```
