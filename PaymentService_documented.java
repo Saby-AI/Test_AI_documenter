@@ -1,6 +1,5 @@
-```java
 /*
-Date: 07/10/2025
+Date: 27/10/2025
 User: Agentic_AI_System_Documenter
 Code Language: Java
 */
@@ -8,42 +7,52 @@ import com.example.paymentgateway.PaymentGatewaySDK;
 import com.example.paymentgateway.models.PaymentIntent;
 import com.example.paymentgateway.exceptions.PaymentException;
 /**
- * PaymentService class is responsible for handling payment processing
- * operations using the PaymentGatewaySDK.
+ * PaymentService class handles operations related to payment processing through the Payment Gateway.
+ * It provides methods to create and confirm payment intents, ensuring secure and efficient transaction handling.
  */
 public class PaymentService {
     private final PaymentGatewaySDK sdk;
     /**
-     * Constructs a PaymentService instance with a specified secret key.
+     * Constructor that initializes PaymentGatewaySDK with the provided secret key.
      *
-     * @param secretKey the API secret key for authenticating with the payment gateway.
-     *                  It is advised to load sensitive information from a secure source rather than hardcoding.
+     * @param secretKey the secret key used to initialize the SDK.
      */
     public PaymentService(String secretKey) {
         this.sdk = new PaymentGatewaySDK(secretKey);
     }
     /**
-     * Creates a payment intent with specified amount and currency.
+     * Creates a payment intent for the specified amount and currency.
+     * This method validates the input parameters to ensure they meet the required criteria.
      *
-     * @param amountInCents the total amount of the payment in cents.
-     * @param currency the currency code (e.g., "USD").
-     * @return the client secret associated with the payment intent for client-side use.
+     * @param amountInCents the amount for the payment in cents. Must be a positive value.
+     * @param currency the currency for the payment. Must be a valid ISO currency code.
+     * @return the client secret of the payment intent, which can be used on the client side.
      * @throws PaymentException if there is an error creating the payment intent.
+     * @throws IllegalArgumentException if the amount is non-positive or currency is invalid.
      */
     public String createPaymentIntent(long amountInCents, String currency) throws PaymentException {
+        if (amountInCents <= 0) {
+            throw new IllegalArgumentException("Amount must be a positive value.");
+        }
+        if (currency == null || currency.isEmpty()) {
+            throw new IllegalArgumentException("Currency must be a valid ISO currency code.");
+        }
         PaymentIntent intent = sdk.createPaymentIntent(amountInCents, currency);
-        return intent.getClientSecret(); // Returns a unique identifier for client use.
+        return intent.getClientSecret(); // Or a unique ID for client-side use
     }
     /**
-     * Confirms a payment using the payment intent ID.
+     * Confirms the payment for the given payment intent ID.
+     * This method checks the validity of the payment intent ID before processing.
      *
-     * @param paymentIntentId the ID of the payment intent to confirm.
-     * @return true if the payment was confirmed successfully, otherwise false.
+     * @param paymentIntentId the ID of the payment intent to confirm. Must not be null or empty.
+     * @return true if the payment was successfully confirmed, false otherwise.
      * @throws PaymentException if there is an error confirming the payment.
+     * @throws IllegalArgumentException if the payment intent ID is null or empty.
      */
     public boolean confirmPayment(String paymentIntentId) throws PaymentException {
+        if (paymentIntentId == null || paymentIntentId.isEmpty()) {
+            throw new IllegalArgumentException("Payment intent ID must not be null or empty.");
+        }
         return sdk.confirmPayment(paymentIntentId);
     }
 }
-```
-In the above documentation, we ensured encompassing comments describe the purpose, parameters, and outcome of each method, improving the maintainability and clarity for any developer interacting with the `PaymentService` class.
