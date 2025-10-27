@@ -1,16 +1,29 @@
-// Outputting vendor information
+import model.Address;
+import model.Communication;
+import model.Party;
+/**
+ * Main class for demonstrating Party object creation and management.
+ */
+public class Main {
+    /**
+     * Main entry point of the application.
+     * Creates sample Party and Vendor objects and prints their details.
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
+        // Create a Customer Party
+        Party c = new Party("Alice Johnson", "Person", "Customer", "Active");
+        c.addAddress(new Address("Bill_To", "123 Billing St", "Suite 100", "New York", "NY", "USA", "10001"));
+        c.addAddress(new Address("Ship_To", "456 Shipping Ave", "", "Brooklyn", "NY", "USA", "11201"));
+        c.addCommunication(new Communication("Email", "alice@example.com"));
+        c.addCommunication(new Communication("Phone", "+1-555-123-4567"));
+        System.out.println(c);
+        // Create a Vendor Party
+        Party v = new Party("Tech Supplies Inc.", "Organization", "Vendor", "Active");
+        v.addAddress(new Address("Bill_To", "789 Tech Blvd", "", "San Jose", "CA", "USA", "95112"));
+        v.addAddress(new Address("Ship_To", "321 Supply Rd", "", "Fremont", "CA", "USA", "94536"));
+        v.addCommunication(new Communication("Fax", "+1-555-987-6543"));
+        v.addCommunication(new Communication("Email", "support@techsupplies.com"));
         System.out.println(v);
     }
 }
-```
-### Analysis
-1. **Key Features:**
-   - The code demonstrates the use of the `Party`, `Address`, and `Communication` classes to model entities in a system.
-   - It showcases adding addresses and communication methods to each entity and prints the details.
-2. **Documentation:**
-   - The code includes a date header as per the requirements.
-   - Functionality and parameters are well documented using Javadoc-style comments to provide clarity.
-3. **Code Quality Improvements Suggested:**
-   - Class names in Java should follow the convention of starting with an uppercase letter. Therefore, the class name `main` should ideally be `Main`.
-   - Ensure complete exception handling and validation checks (not included in the current example but is a good practice for robustness).
-This analysis evaluates the code for maintainability, readability, and compliance with Java conventions, providing a clear path for future improvements and considerations when enhancing the system.
