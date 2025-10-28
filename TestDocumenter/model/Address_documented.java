@@ -1,0 +1,1 @@
+Error: Environment validation failed. Please check your .env file configuration.
